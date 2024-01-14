@@ -172,7 +172,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(10),
                     ),
                   ),
-                  SizedBox(height: 40,)
+                  SizedBox(height: 40,),
 
                 ),
                 SizedBox(height: 20.0,),
