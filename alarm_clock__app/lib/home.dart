@@ -158,30 +158,24 @@ class _HomeScreenState extends State<HomeScreen> {
             Expanded(
               child: TabBarView(children: [
                 Center(
-                  //alarm
-                  child: Container(
-
-                  ),
+                  child: Text("Chats"),
                 ),
                 Center(
-                  //stopwatch
                   child: Container(
-                    height: 400,
+                    height: 300,
                     decoration: BoxDecoration(
                       color: Colors.grey,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(10)
                     ),
                   ),
-                ),
-                SizedBox(height: 20.0,),
 
+                ),
+                //SizedBox(height: 20.0,)
                 Center(
-                  //timmer
-                  child: Container(),
+                  child: Text("Chats"),
                 ),
                 Center(
-                  //world clock
-                  child: Container(),
+                  child: Text("Chats"),
                 ),
               ],)),
             // SizedBox(height: 30),
