@@ -1,4 +1,6 @@
-import 'package:attendance_app/verfied/signup.dart';
+import 'package:attendance_app/verfied/login.dart';
+import 'package:attendance_app/wrapper.dart';
+//import 'package:attendance_app/verfied/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
@@ -107,9 +109,9 @@ class _OnBoardingState extends State<OnBoarding> {
       showDoneButton: true,
       onDone: () {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => SignUp()));
+            context, MaterialPageRoute(builder: (context) => Wrapper()));
       },
-      done: Text("Login "),
+      done: Text("Start "),
       showNextButton: false,
       showBackButton: false,
       showSkipButton: true,
