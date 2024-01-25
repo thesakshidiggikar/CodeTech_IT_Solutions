@@ -1,3 +1,4 @@
+import 'package:attendance_app/verfied/login.dart';
 import 'package:attendance_app/verfied/signup.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -26,7 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Text("Hello ! ${user!.email}"),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: ()=>signout(),
+       onPressed: (() async {
+          await signout();
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => LoginPage()));
+        }),
         child: Icon(Icons.login_rounded),
       ),
     );

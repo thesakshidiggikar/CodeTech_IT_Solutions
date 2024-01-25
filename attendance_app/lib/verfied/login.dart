@@ -1,4 +1,5 @@
 import 'package:attendance_app/verfied/signup.dart';
+import 'package:attendance_app/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -59,7 +60,7 @@ class _LoginPageState extends State<LoginPage> {
                     image: AssetImage("images/wel1.png"),
                   ),
                   Text(
-                    "Welcome Back ",
+                    "Login ",
                     style: Theme.of(context).textTheme.headlineMedium,
                   ),
                   const SizedBox(
@@ -116,7 +117,14 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                            onPressed: (() => signIn()), child: Text("Login"))),
+                            onPressed: (() async {
+                              await signIn();
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()));
+                            }),
+                            child: Text("Login"))),
                     const SizedBox(
                       height: 15.0,
                     ),
@@ -129,12 +137,17 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Flexible(
-                    child: Divider(color: const Color.fromARGB(255, 92, 90, 90),
-                    thickness: 0.5,
-                    indent: 60,
-                    endIndent: 5,),
+                    child: Divider(
+                      color: const Color.fromARGB(255, 92, 90, 90),
+                      thickness: 0.5,
+                      indent: 60,
+                      endIndent: 5,
+                    ),
                   ),
-                  Text("or Sign in with ",style: Theme.of(context).textTheme.labelLarge,),
+                  Text(
+                    "or Sign in! ",
+                    style: Theme.of(context).textTheme.labelLarge,
+                  ),
                   Flexible(
                     child: Divider(
                       color: Color.fromARGB(255, 92, 90, 90),
@@ -144,6 +157,22 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ],
+              ),
+              //footter
+              const SizedBox(height: 16.0),
+              SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: (() async {
+                        // await signIn();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => SignUp()));
+                      }),
+                      child: Text("Sign up!!!"))),
+              const SizedBox(
+                height: 15.0,
               ),
             ],
           ),
