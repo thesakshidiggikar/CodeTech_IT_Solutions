@@ -1,6 +1,8 @@
 import 'package:attendance_app/views/homeScreen.dart';
+import 'package:attendance_app/wrapper.dart';
 import 'package:flutter/material.dart';
 import "package:firebase_auth/firebase_auth.dart";
+import 'package:get/get.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -18,6 +20,7 @@ class _SignUpState extends State<SignUp> {
   Admin() async {
     await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email.text, password: password.text);
+    Get.offAll(Wrapper());
   }
   // TextEditingController password = TextEditingController();
 
@@ -135,7 +138,7 @@ class _SignUpState extends State<SignUp> {
                 SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                        onPressed: (() async {
+                      onPressed: (() async {
                         await Admin();
                         Navigator.pushReplacement(
                             context,
