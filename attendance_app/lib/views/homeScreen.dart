@@ -23,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      //--------------sideBar-------------
       drawer: Drawer(
         child: Material(
           color: Color.fromARGB(255, 242, 239, 239),
@@ -31,41 +32,92 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 headerWidget(),
-                DrawerItems(
-                    name: "People",
-                    icon: Icons.people,
-                    onPressed: () => onItemPressed(context, index: 0),
-                    ),
                 const SizedBox(
-                  height: 30.0,
+                  height: 10.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                DrawerItems(
+                  name: "People",
+                  icon: Icons.people,
+                  onPressed: () => onItemPressed(context, index: 0),
+                ),
+                const SizedBox(
+                  height: 4.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                     name: "About",
                     icon: Icons.report,
                     onPressed: () => onItemPressed(context, index: 0)),
                 const SizedBox(
-                  height: 30.0,
+                  height: 4.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                     name: "profile",
                     icon: Icons.people,
                     onPressed: () => onItemPressed(context, index: 0)),
                 const SizedBox(
-                  height: 30.0,
+                  height: 4.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                     name: "feedback",
                     icon: Icons.people,
                     onPressed: () => onItemPressed(context, index: 0)),
                 const SizedBox(
-                  height: 30.0,
+                  height: 4.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                     name: "help",
                     icon: Icons.people,
                     onPressed: () => onItemPressed(context, index: 0)),
                 const SizedBox(
-                  height: 30.0,
+                  height: 4.0,
+                ),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                     name: "Coming...",
@@ -79,6 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+      //----------------------HomeScreen----------------------
       appBar: AppBar(
         title: Text("HomePage ${user!.email}"),
       ),
@@ -88,7 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              color: Colors.white,
+
             ),
           ),
           Padding(
@@ -142,6 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
@@ -215,22 +270,35 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         const CircleAvatar(
           radius: 40,
-          //backgroundImage:NetworkImage(url)
+          // backgroundImage: NetworkImage(url)
         ),
         const SizedBox(
           width: 20,
         ),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
-          Text("People name",
-              style: TextStyle(fontSize: 14, color: Colors.red)),
-          SizedBox(
-            height: 10,
-          ),
-          Text("person@gmail.com",
-              style: TextStyle(fontSize: 14, color: Colors.red))
-        ])
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              user?.displayName ?? "Anonymous",
+              style: const TextStyle(
+                fontSize: 22,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: [
+                Text(
+                  user?.email ?? "No email",
+                  style: const TextStyle(fontSize: 16, color: Colors.black),
+                ),
+              ],
+            )
+          ],
+        ),
       ],
     );
   }
-
 }
