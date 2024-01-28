@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:attendance_app/views/navigation_drawer.dart';
 import 'package:attendance_app/views/drawer_items.dart';
 import 'package:attendance_app/views/people.dart';
+import 'package:slide_to_act/slide_to_act.dart';
+import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,7 +16,32 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  bool isFinished = false;
   final user = FirebaseAuth.instance.currentUser;
+
+  @override
+  void initState() {
+  }
+
+void showLoginAlertDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text("Mark Your Attendance!"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text("OK"),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
 
   signout() async {
     await FirebaseAuth.instance.signOut();
@@ -120,9 +147,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: 4.0,
                 ),
                 DrawerItems(
-                    name: "Coming...",
-                    icon: Icons.people,
-                    onPressed: () => onItemPressed(context, index: 0)),
+                  name: "Logout...",
+                  icon: Icons.login_rounded,
+                  onPressed: (() async {
+                    await signout();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => LoginPage()));
+                  }),
+                ),
                 const SizedBox(
                   height: 30.0,
                 ),
@@ -142,7 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               height: 160,
               color: Colors.white,
-
             ),
           ),
           Padding(
@@ -196,59 +227,389 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Mediterranem Chickpea Salad",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Mediterranem Chickpea Salad",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "OS Assignment Submission",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Mediterranem Chickpea Salad",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Mediterranem Chickpea Salad",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
               height: 160,
-              color: Colors.red,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Mediterranem Chickpea Salad",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Hone Goot Cheese",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
             ),
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: (() async {
-          await signout();
-          Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => LoginPage()));
-        }),
-        child: Icon(Icons.login_rounded),
-      ),
+
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: (() async {
+      //     await signout();
+      //     Navigator.pushReplacement(
+      //         context, MaterialPageRoute(builder: (context) => LoginPage()));
+      //   }),
+      //   child: Icon(Icons.login_rounded),
+      // ),
     );
   }
 
