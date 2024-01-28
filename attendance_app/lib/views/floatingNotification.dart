@@ -1,6 +1,6 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-class Notification {
+class NotificationManager {
   final FlutterLocalNotificationsPlugin notificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
@@ -9,16 +9,31 @@ class Notification {
         const AndroidInitializationSettings("success.png");
 
     var initializationSettingsIOS = DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      onDidReceiveLocalNotification:
-    (int id, String? title, String? body, String? payload) async {});
+        requestAlertPermission: true,
+        requestBadgePermission: true,
+        requestSoundPermission: true,
+        onDidReceiveLocalNotification:
+            (int id, String? title, String? body, String? payload) async {});
 
-    var initiaLizedSettings = InitializationSettings(
-      android: initializationSettingsAndroid,iOS: initializationSettingsIOS);
+    InitializationSettings initiaLizedSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
 
     await notificationsPlugin.initialize(initiaLizedSettings,
-    onDidReceiveNotificationResponse:(NotificationResponse notificationResponse) async{}
-    );
+        onDidReceiveNotificationResponse: (details) {});
+  }
+
+  Future<void> simpleNotification() async {
+    AndroidNotificationDetails androidNotificationDetails =
+        AndroidNotificationDetails("channelId", "channelName",
+            priority: Priority.high,
+            importance: Importance.high,
+            icon: "success.png",
+            channelShowBadge: true,
+            largeIcon: DrawableResourceAndroidBitmap("success.png"));
+
+    NotificationDetails notificationDetails =
+        NotificationDetails(android: androidNotificationDetails);
+    await notificationsPlugin.show(
+        0, "Attendance Marked Successfully", "New user", notificationDetails);
   }
 }

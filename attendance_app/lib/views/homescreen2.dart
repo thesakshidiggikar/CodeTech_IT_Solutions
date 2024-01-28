@@ -10,69 +10,46 @@ import 'package:attendance_app/views/people.dart';
 //import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class HomeScreen2 extends StatefulWidget {
+  const HomeScreen2({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen2> createState() => _HomeScreen2State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreen2State extends State<HomeScreen2> {
   bool isFinished = false;
   bool alertShown = false;
   final user = FirebaseAuth.instance.currentUser;
+  Future<Map<String, dynamic>> fetchUserData(String uid) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc("9h5vSX9AABbD5RBDRnWL")
+              .get();
+
+      return userSnapshot.data() ?? {};
+    } catch (e) {
+      print("Error fetching user data: $e");
+      return {};
+    }
+  }
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      if (user != null) {
-        showLoginAlertDialog(context);
-      }
+    fetchUserData(user!.uid).then((userData) {
+      setState(() {
+        // Update the UI with user data
+        username = userData['username'] ?? 'Anonymous';
+      });
     });
   }
 
-void showLoginAlertDialog(BuildContext context) async {
-    if (alertShown) {
-      return; // Do nothing if the alert is already shown
-    }
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text("Mark Your Attendance!"),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop(); // Close the AlertDialog
-                alertShown = true; // Set the flag to true
-
-                // Navigate to Attendance screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Attendance()),
-                ).then((value) {
-                  // This block will be executed when returning from the AttendanceScreen
-                  // If you need to navigate to HomeScreen, do it here
-                  if (value == true) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
-                    );
-                  }
-                });
-              },
-              child: Text("OK"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-    // After the alert is dismissed, navigate to the desired screen
-
+  String username = '';
   signout() async {
     await FirebaseAuth.instance.signOut();
   }
@@ -193,7 +170,7 @@ void showLoginAlertDialog(BuildContext context) async {
           ),
         ),
       ),
-      //----------------------HomeScreen----------------------
+      //----------------------HomeScreen2----------------------
       appBar: AppBar(
         title: Text("HomePage ${user!.email}"),
       ),
@@ -657,11 +634,14 @@ void showLoginAlertDialog(BuildContext context) async {
   }
 
   Widget headerWidget() {
+    String url1 = "images/intro1.png";
     return Row(
       children: [
         const CircleAvatar(
           radius: 40,
-          // backgroundImage: NetworkImage(url)
+          // backgroundImage: url1.isNotEmpty
+          //     ? NetworkImage(url1) // Show the user's profile picture
+          //     : null
         ),
         const SizedBox(
           width: 20,
@@ -670,7 +650,7 @@ void showLoginAlertDialog(BuildContext context) async {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              user?.displayName ?? "Anonymous",
+              username.isNotEmpty ? username : 'Anonymous',
               style: const TextStyle(
                 fontSize: 22,
                 color: Colors.black,

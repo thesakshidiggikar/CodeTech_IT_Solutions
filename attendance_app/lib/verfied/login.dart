@@ -14,10 +14,42 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  String emailError = '';
+  String passwordError = '';
+
   signIn() async {
     await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: email.text, password: password.text);
   }
+  void validateInputs() {
+    String emailPattern = r'^[a-zA-Z0-9.]+@(gmail|GMAIL)\.(com|COM)$';
+    RegExp emailRegex = RegExp(emailPattern);
+
+    String passwordPattern = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$';
+    RegExp passwordRegex = RegExp(passwordPattern);
+
+    if (!emailRegex.hasMatch(email.text)) {
+      setState(() {
+        emailError = 'Email should be a valid Gmail address.';
+      });
+    } else {
+      setState(() {
+        emailError = '';
+      });
+    }
+
+    if (!passwordRegex.hasMatch(password.text)) {
+      setState(() {
+        passwordError =
+            'Password should be at least 6 characters, contain 1 capital letter, and no special characters.';
+      });
+    } else {
+      setState(() {
+        passwordError = '';
+      });
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -80,18 +112,36 @@ class _LoginPageState extends State<LoginPage> {
                     TextFormField(
                       controller: email,
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined),
-                          labelText: "enter email"),
+                        prefixIcon: Icon(Icons.email_outlined),
+                        labelText: "Enter email",
+                      ),
                     ),
                     const SizedBox(
                       height: 9.0,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Email should be a valid Gmail address.',
+                        style: TextStyle(color: Colors.red),
+                      ),
                     ),
                     TextFormField(
                       controller: password,
                       decoration: InputDecoration(
                         prefixIcon: Icon(Icons.password_rounded),
-                        labelText: " enter password",
+                        labelText: "Enter password",
                         suffixIcon: Icon(Icons.remove_red_eye_outlined),
+                        errorText:
+                            passwordError.isNotEmpty ? passwordError : null,
+                      ),
+                    ),
+                    const SizedBox(height: 16.0 / 2),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Password should be at least 6 characters, contain 1 capital letter, and no special characters.',
+                        style: TextStyle(color: Colors.red),
                       ),
                     ),
                     const SizedBox(height: 16.0 / 2),
@@ -165,10 +215,8 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                       onPressed: (() async {
                         // await signIn();
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => SignUp()));
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) => SignUp()));
                       }),
                       child: Text("Sign up!!!"))),
               const SizedBox(
