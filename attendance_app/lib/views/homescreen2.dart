@@ -1,7 +1,6 @@
 import 'package:attendance_app/main.dart';
 import 'package:attendance_app/verfied/login.dart';
 import 'package:attendance_app/verfied/signup.dart';
-import 'package:attendance_app/views/attend.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:attendance_app/views/navigation_drawer.dart';

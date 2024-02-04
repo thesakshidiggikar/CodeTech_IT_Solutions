@@ -1,7 +1,9 @@
 import 'package:attendance_app/main.dart';
 import 'package:attendance_app/verfied/login.dart';
 import 'package:attendance_app/verfied/signup.dart';
-import 'package:attendance_app/views/attend.dart';
+import 'package:attendance_app/views/Attendt.dart';
+import 'package:attendance_app/views/attendace.dart';
+import 'package:attendance_app/views/homescreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:attendance_app/views/navigation_drawer.dart';
@@ -52,14 +54,14 @@ void showLoginAlertDialog(BuildContext context) async {
                 // Navigate to Attendance screen
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Attendance()),
-                ).then((value) {
+                  MaterialPageRoute(builder: (context) => Attend()),
+                )..then((value) {
                   // This block will be executed when returning from the AttendanceScreen
                   // If you need to navigate to HomeScreen, do it here
                   if (value == true) {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => Attend()),
                     );
                   }
                 });
