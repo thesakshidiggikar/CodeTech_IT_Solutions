@@ -41,7 +41,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       appBar: AppBar(
         title: Text("Attendance Sheet: $month"),
         leading: IconButton(
-          icon: Icon(Icons.), // You can change this icon to the desired one
+          icon: Icon(Icons.arrow_back_ios), // You can change this icon to the desired one
           onPressed: () {
             MaterialPageRoute(builder: ((context) => HomeScreen2()));
             // Add the desired functionality for the icon press
