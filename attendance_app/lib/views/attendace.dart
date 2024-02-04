@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: AttendanceScreen(),
     );
-  
+  }
 }
 
 class AttendanceScreen extends StatefulWidget {
