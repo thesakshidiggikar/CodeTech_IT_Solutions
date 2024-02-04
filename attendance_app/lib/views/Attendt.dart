@@ -25,9 +25,6 @@ class Attendent extends StatelessWidget {
   }
 }
 
-
-
-
 class Attend extends StatefulWidget {
   const Attend({super.key});
 
@@ -73,7 +70,7 @@ class _AttendState extends State<Attend> {
                       });
                     });
                   },
-onFinish: () async {
+                  onFinish: () async {
                     DateTime currentDate = DateTime.now();
                     await Navigator.push(
                       context,
@@ -85,10 +82,7 @@ onFinish: () async {
                     setState(() {
                       isFinished = false;
                     });
-                  }
-                  )
-                  ),
-
+                  })),
         ],
       ),
     );

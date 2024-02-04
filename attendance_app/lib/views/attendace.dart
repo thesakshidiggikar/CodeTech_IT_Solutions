@@ -1,3 +1,4 @@
+import 'package:attendance_app/views/homescreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -39,6 +40,13 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Attendance Sheet: $month"),
+        leading: IconButton(
+          icon: Icon(Icons.), // You can change this icon to the desired one
+          onPressed: () {
+            MaterialPageRoute(builder: ((context) => HomeScreen2()));
+            // Add the desired functionality for the icon press
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -46,7 +54,7 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "For Month",
+              "For Month ",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 8),

@@ -46,7 +46,7 @@ class NavigationDrawer extends StatelessWidget {
                 height: 30.0,
               ),
               DrawerItems(
-                  name: "help",
+                  name: "Attendance",
                   icon: Icons.people,
                   onPressed: () => onItemPressed(context, index: 0)),
               const SizedBox(

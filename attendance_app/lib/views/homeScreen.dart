@@ -134,12 +134,20 @@ void showLoginAlertDialog(BuildContext context) async {
                   height: 4.0,
                 ),
                 DrawerItems(
-                    name: "profile",
-                    icon: Icons.people,
-                    onPressed: () => onItemPressed(context, index: 0)),
-                const SizedBox(
-                  height: 4.0,
+                  name: "Attendace...",
+                  icon: Icons.login_rounded,
+                  onPressed: (() async {
+                    await signout();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendanceScreen()));
+                  }),
                 ),
+                const SizedBox(
+                  height: 3.0,
+                ),
+                
                 Divider(
                   thickness: 1,
                   //indent: 3,
