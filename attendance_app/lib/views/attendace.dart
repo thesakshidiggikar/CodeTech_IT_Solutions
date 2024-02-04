@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
       home: AttendanceScreen(),
     );
   }
-}
+}}
 
 class AttendanceScreen extends StatefulWidget {
   @override
