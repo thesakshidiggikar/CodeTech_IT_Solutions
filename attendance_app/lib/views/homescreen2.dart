@@ -1,6 +1,7 @@
 import 'package:attendance_app/main.dart';
 import 'package:attendance_app/verfied/login.dart';
 import 'package:attendance_app/verfied/signup.dart';
+import 'package:attendance_app/views/attendace.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:attendance_app/views/navigation_drawer.dart';
@@ -144,13 +145,14 @@ class _HomeScreen2State extends State<HomeScreen2> {
                 const SizedBox(
                   height: 4.0,
                 ),
-                Divider(
-                  thickness: 1,
-                  //indent: 3,
-                  //endIndent: 10,
-                ),
-                const SizedBox(
-                  height: 4.0,
+                DrawerItems(
+                  name: "Attendance...",
+                  icon: Icons.login_rounded,
+                  onPressed: (() async {
+                    await signout();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => AttendanceScreen()));
+                  }),
                 ),
                 DrawerItems(
                   name: "Logout...",
