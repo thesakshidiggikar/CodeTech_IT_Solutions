@@ -14,9 +14,14 @@ import 'package:slide_to_act/slide_to_act.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
-  String greeting = getGreeting();
-  String gifUrl = "https://example.com/your_gif_url.gif"; // Add this line
+  HomeScreen({Key? key}) : super(key: key);
+
+  late String greeting; // Declare the greeting field
+
+  // Add a named constructor to initialize greeting
+  HomeScreen.withGreeting(String greeting) : greeting = greeting;
+
+  String gifUrl = "https://example.com/your_gif_url.gif";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -30,12 +35,15 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // Initialize greeting in initState
+    widget.greeting = getGreeting();
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       if (user != null) {
         showLoginAlertDialog(context);
       }
     });
   }
+
 
   String getGreeting() {
     var hour = DateTime.now().hour;
