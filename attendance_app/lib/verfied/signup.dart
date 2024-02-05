@@ -44,7 +44,7 @@ class _SignUpState extends State<SignUp> {
       // Store user data in Firestore
       await FirebaseFirestore.instance.collection('users').add({
         'username': Username.text,
-        'password':password.text,
+        'password': password.text,
         'email': email.text,
         'course': Course.text,
         'semester': Sem.text,
@@ -253,7 +253,6 @@ class _SignUpState extends State<SignUp> {
                     width: double.infinity,
                     child: ElevatedButton(
                       onPressed: (() async {
-                        
                         await Admin();
                         Navigator.pushReplacement(
                             context,

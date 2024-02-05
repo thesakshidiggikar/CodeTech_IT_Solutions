@@ -263,7 +263,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Container and Orchestration",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -277,7 +277,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr.Thomas . P",
                               //style: AppWidget.LightTextFeildStyle(),
                             ),
                           ),
@@ -325,7 +325,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "OS Assignment Submission",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -339,7 +339,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Miss.Juelia Lomunius",
                               //style: AppWidget.LightTextFeildStyle(),
                             ),
                           ),

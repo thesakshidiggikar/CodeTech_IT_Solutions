@@ -14,7 +14,7 @@ import 'package:slide_to_act/slide_to_act.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -35,7 +35,18 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-void showLoginAlertDialog(BuildContext context) async {
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return "Good morning!";
+    } else if (hour < 17) {
+      return "Good afternoon!";
+    } else {
+      return "Good evening!";
+    }
+  }
+
+  void showLoginAlertDialog(BuildContext context) async {
     if (alertShown) {
       return; // Do nothing if the alert is already shown
     }
@@ -56,15 +67,15 @@ void showLoginAlertDialog(BuildContext context) async {
                   context,
                   MaterialPageRoute(builder: (context) => Attend()),
                 )..then((value) {
-                  // This block will be executed when returning from the AttendanceScreen
-                  // If you need to navigate to HomeScreen, do it here
-                  if (value == true) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Attend()),
-                    );
-                  }
-                });
+                    // This block will be executed when returning from the AttendanceScreen
+                    // If you need to navigate to HomeScreen, do it here
+                    if (value == true) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => Attend()),
+                      );
+                    }
+                  });
               },
               child: Text("OK"),
             ),
@@ -73,7 +84,7 @@ void showLoginAlertDialog(BuildContext context) async {
       },
     );
   }
-    // After the alert is dismissed, navigate to the desired screen
+  // After the alert is dismissed, navigate to the desired screen
 
   signout() async {
     await FirebaseAuth.instance.signOut();
@@ -147,7 +158,6 @@ void showLoginAlertDialog(BuildContext context) async {
                 const SizedBox(
                   height: 3.0,
                 ),
-                
                 Divider(
                   thickness: 1,
                   //indent: 3,
@@ -214,6 +224,34 @@ void showLoginAlertDialog(BuildContext context) async {
             child: Container(
               height: 160,
               color: Colors.white,
+              padding: EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Hello! ${user?.displayName ?? "Anonymous"}',
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        getGreeting(), // Use the dynamic greeting here
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
+                  // Animated GIF on the right side
+                  Image.network(
+                    gifUrl,
+                    height: 120,
+                    width: 120,
+                    fit: BoxFit.cover,
+                  ),
+                ],
+              ),
             ),
           ),
           Padding(
@@ -295,7 +333,7 @@ void showLoginAlertDialog(BuildContext context) async {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Operating System",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -309,7 +347,7 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Mrs. Jully Porchey",
                               //style: AppWidget.LightTextFeildStyle(),
                             ),
                           ),
@@ -357,7 +395,7 @@ void showLoginAlertDialog(BuildContext context) async {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Container and Orchestration",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -371,16 +409,8 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr.Thomas . P",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -433,16 +463,8 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Miss.Juelia Lomunius",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -481,7 +503,7 @@ void showLoginAlertDialog(BuildContext context) async {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Java Advance",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -495,16 +517,8 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr.Jack",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -543,7 +557,7 @@ void showLoginAlertDialog(BuildContext context) async {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Python Core",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -557,16 +571,8 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr.Christopher .D",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -605,7 +611,7 @@ void showLoginAlertDialog(BuildContext context) async {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Infrastructure Security",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -619,16 +625,8 @@ void showLoginAlertDialog(BuildContext context) async {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr. Stein Thomas",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],

@@ -54,7 +54,7 @@ class _AttendState extends State<Attend> {
           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 25),
               child: SwipeableButtonView(
-                  buttonText: "Mark or Attendance",
+                  buttonText: "Mark your Attendance",
                   buttonWidget: Container(
                     child: Icon(
                       Icons.arrow_forward_ios_rounded,
