@@ -318,7 +318,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             SizedBox(height: 14),
                             Text(
                               "Java Advance",
-                              style: TextStyle(fontSize: 10),
+                              style: TextStyle(fontSize: 14),
                             ),
                           ],
                         ),
