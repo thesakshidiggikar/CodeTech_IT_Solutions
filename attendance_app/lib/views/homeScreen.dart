@@ -21,7 +21,7 @@ class HomeScreen extends StatefulWidget {
   // Add a named constructor to initialize greeting
   HomeScreen.withGreeting(String greeting) : greeting = greeting;
 
-  String gifUrl = "https://example.com/your_gif_url.gif";
+  String gifUrl = "images/animation.gif";
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -43,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
       }
     });
   }
-
 
   String getGreeting() {
     var hour = DateTime.now().hour;
@@ -234,32 +233,42 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Container(
               height: 160,
               color: Colors.white,
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.all(14),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Hello! ${user?.displayName ?? "Anonymous"}',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        getGreeting(), // Use the dynamic greeting here
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello! ',
+                          style: TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          getGreeting(),
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 20),
+                        Text(
+                          "Check todays updates! ",
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
                   ),
-                  // Animated GIF on the right side
-                  Image.network(
-                    gifUrl,
-                    height: 120,
-                    width: 120,
-                    fit: BoxFit.cover,
+                  Expanded(
+                    child: Image.asset(
+                      "images/animation.gif", // Use Image.asset for local assets
+                      height: 210,
+                      width: 210,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ],
               ),
@@ -272,14 +281,52 @@ class _HomeScreenState extends State<HomeScreen> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      color: Colors.blue,
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate on container click
+                      // Add your navigation logic here
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black), // Add border
+                          borderRadius: BorderRadius.circular(
+                              12.0), // Optional: Add border radius
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.5),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Java Func.",
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Java Advance",
+                              style: TextStyle(fontSize: 10),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                   ),
+                  //
+
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Container(
