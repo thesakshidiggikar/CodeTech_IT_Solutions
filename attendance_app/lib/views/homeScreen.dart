@@ -253,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height:  18),
                         Text(
                           "Check todays updates! ",
                           style: TextStyle(
@@ -274,6 +274,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
+          SizedBox(height: 18),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
@@ -293,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         width: 150,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.black, width: 7.0), // Add border
+                              color: Colors.black45, width: 3.0), // Add border
                           borderRadius: BorderRadius.circular(12.0),
                           // Optional: Add border radius
                           boxShadow: [
