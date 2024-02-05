@@ -15,6 +15,8 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+  String greeting = getGreeting();
+  String gifUrl = "https://example.com/your_gif_url.gif"; // Add this line
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -234,7 +236,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         'Hello! ${user?.displayName ?? "Anonymous"}',
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(height: 8),
                       Text(
