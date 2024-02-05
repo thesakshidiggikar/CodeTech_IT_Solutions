@@ -315,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   fontSize: 28, fontWeight: FontWeight.bold),
                               textAlign: TextAlign.center,
                             ),
-                            SizedBox(height: 8),
+                            SizedBox(height: 14),
                             Text(
                               "Java Advance",
                               style: TextStyle(fontSize: 10),
