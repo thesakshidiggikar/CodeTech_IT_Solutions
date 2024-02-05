@@ -13,8 +13,12 @@ import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class HomeScreen2 extends StatefulWidget {
-  const HomeScreen2({super.key});
+  HomeScreen2({Key? key}) : super(key: key);
 
+  late String greeting;
+ HomeScreen2.withGreeting(String greeting) : greeting = greeting;
+
+  String gifUrl = "images/animation.gif";
   @override
   State<HomeScreen2> createState() => _HomeScreen2State();
 }
@@ -41,6 +45,20 @@ class _HomeScreen2State extends State<HomeScreen2> {
   @override
   void initState() {
     super.initState();
+        // Initialize greeting in initState
+    widget.greeting = getGreeting();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      if (user != null) {
+        showLoginAlertDialog(context);
+      }
+    });
+  }
+  void showLoginAlertDialog(BuildContext context) async {
+    if (alertShown) {
+      return; // Do nothing if the alert is already shown
+    }
+
+
     fetchUserData(user!.uid).then((userData) {
       setState(() {
         // Update the UI with user data
@@ -49,6 +67,17 @@ class _HomeScreen2State extends State<HomeScreen2> {
     });
   }
 
+
+  String getGreeting() {
+    var hour = DateTime.now().hour;
+    if (hour < 12) {
+      return "Good morning!";
+    } else if (hour < 17) {
+      return "Good afternoon!";
+    } else {
+      return "Good evening!";
+    }
+  }
   String username = '';
   signout() async {
     await FirebaseAuth.instance.signOut();
@@ -150,8 +179,10 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   icon: Icons.login_rounded,
                   onPressed: (() async {
                     await signout();
-                    Navigator.pushReplacement(context,
-                        MaterialPageRoute(builder: (context) => AttendanceScreen()));
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendanceScreen()));
                   }),
                 ),
                 DrawerItems(
@@ -182,8 +213,48 @@ class _HomeScreen2State extends State<HomeScreen2> {
             child: Container(
               height: 160,
               color: Colors.white,
+              padding: EdgeInsets.all(14),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Hello! ',
+                          style: TextStyle(
+                              fontSize: 28, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 8),
+                        Text(
+                          getGreeting(),
+                          style: TextStyle(
+                              fontSize: 25, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 18),
+                        Text(
+                          "Check todays updates! ",
+                          style: TextStyle(
+                              fontSize: 12, fontWeight: FontWeight.w400),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Image.asset(
+                      "images/animation.gif", // Use Image.asset for local assets
+                      height: 210,
+                      width: 210,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
+          SizedBox(height: 18),
           Padding(
             padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
             child: Container(
@@ -191,12 +262,89 @@ class _HomeScreen2State extends State<HomeScreen2> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 children: [
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate on container click
+                      // Add your navigation logic here
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        height: 150,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.black45, width: 3.0), // Add border
+                          borderRadius: BorderRadius.circular(12.0),
+                          // Optional: Add border radius
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.white.withOpacity(0.9),
+                              spreadRadius: 2,
+                              blurRadius: 5,
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Java Func.",
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                              textAlign: TextAlign.center,
+                            ),
+                            SizedBox(height: 14),
+                            Text(
+                              "Java Advance",
+                              style: TextStyle(fontSize: 16),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                  //
+
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -204,7 +352,37 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -212,7 +390,37 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -220,18 +428,102 @@ class _HomeScreen2State extends State<HomeScreen2> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(5),
-                    child: Container(
-                      height: 150,
-                      width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
+            child: Container(
+              height: 160,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Operating System",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "Mrs. Jully Porchey",
+                              //style: AppWidget.LightTextFeildStyle(),
+                            ),
+                          ),
+                          Container(
+                            //adjusting the title
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              "\$40",
+                              //style: AppWidget.semiBoldTextFeildStyle(),
+                            ),
+                          ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
@@ -279,14 +571,6 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             child: Text(
                               "Dr.Thomas . P",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -343,12 +627,58 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               //style: AppWidget.LightTextFeildStyle(),
                             ),
                           ),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
+            child: Container(
+              height: 160,
+              margin: EdgeInsets.only(right: 10.0),
+              child: Material(
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(20),
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        "images/intro2.png",
+                        height: 120,
+                        width: 120,
+                        fit: BoxFit.cover,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Column(
+                        children: [
+                          Container(
+                              //adjusting the title
+                              width: MediaQuery.of(context).size.width / 2,
+                              child: Text(
+                                "Java Advance",
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Poppins'),
+                              )),
+                          SizedBox(
+                            height: 5.0,
+                          ),
                           Container(
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
+                              "Dr.Jack",
+                              //style: AppWidget.LightTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -387,7 +717,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "OS Assignment Submission",
+                                "Python Core",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -401,16 +731,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr.Christopher .D",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],
@@ -449,7 +771,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
                               //adjusting the title
                               width: MediaQuery.of(context).size.width / 2,
                               child: Text(
-                                "Mediterranem Chickpea Salad",
+                                "Infrastructure Security",
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 22.0,
@@ -463,140 +785,8 @@ class _HomeScreen2State extends State<HomeScreen2> {
                             //adjusting the title
                             width: MediaQuery.of(context).size.width / 2,
                             child: Text(
-                              "Hone Goot Cheese",
+                              "Dr. Stein Thomas",
                               //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
-            child: Container(
-              height: 160,
-              margin: EdgeInsets.only(right: 10.0),
-              child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "images/intro2.png",
-                        height: 120,
-                        width: 120,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                              //adjusting the title
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Text(
-                                "Mediterranem Chickpea Salad",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins'),
-                              )),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "Hone Goot Cheese",
-                              //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 4),
-            child: Container(
-              height: 160,
-              margin: EdgeInsets.only(right: 10.0),
-              child: Material(
-                elevation: 5.0,
-                borderRadius: BorderRadius.circular(20),
-                child: Container(
-                  padding: EdgeInsets.all(5),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        "images/intro2.png",
-                        height: 120,
-                        width: 120,
-                        fit: BoxFit.cover,
-                      ),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                              //adjusting the title
-                              width: MediaQuery.of(context).size.width / 2,
-                              child: Text(
-                                "Mediterranem Chickpea Salad",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 22.0,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Poppins'),
-                              )),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "Hone Goot Cheese",
-                              //style: AppWidget.LightTextFeildStyle(),
-                            ),
-                          ),
-                          Container(
-                            //adjusting the title
-                            width: MediaQuery.of(context).size.width / 2,
-                            child: Text(
-                              "\$40",
-                              //style: AppWidget.semiBoldTextFeildStyle(),
                             ),
                           ),
                         ],

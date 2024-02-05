@@ -253,7 +253,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: TextStyle(
                               fontSize: 25, fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height:  18),
+                        SizedBox(height: 18),
                         Text(
                           "Check todays updates! ",
                           style: TextStyle(
@@ -334,7 +334,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -342,7 +372,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -350,7 +410,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Padding(
@@ -358,7 +448,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Container(
                       height: 150,
                       width: 150,
-                      color: Colors.blue,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            color: Colors.black45, width: 3.0), // Add border
+                        borderRadius: BorderRadius.circular(12.0),
+                        // Optional: Add border radius
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.white.withOpacity(0.9),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3), // changes position of shadow
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Java Func.",
+                            style: TextStyle(
+                                fontSize: 28, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 14),
+                          Text(
+                            "Java Advance",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
