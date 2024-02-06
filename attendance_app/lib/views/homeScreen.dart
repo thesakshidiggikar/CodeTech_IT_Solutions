@@ -54,7 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
       return "Good evening!";
     }
   }
-
+String username = '';
+  signout() async {
+    await FirebaseAuth.instance.signOut();
+  }
   void showLoginAlertDialog(BuildContext context) async {
     if (alertShown) {
       return; // Do nothing if the alert is already shown
@@ -95,9 +98,9 @@ class _HomeScreenState extends State<HomeScreen> {
   }
   // After the alert is dismissed, navigate to the desired screen
 
-  signout() async {
-    await FirebaseAuth.instance.signOut();
-  }
+  // signout() async {
+  //   await FirebaseAuth.instance.signOut();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -858,7 +861,7 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              user?.displayName ?? "Anonymous",
+              username.isNotEmpty ? username : 'Anonymous',
               style: const TextStyle(
                 fontSize: 22,
                 color: Colors.black,

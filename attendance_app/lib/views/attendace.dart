@@ -29,8 +29,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     super.initState();
     currentDate = DateTime.now();
     attendanceList = List.generate(
-        DateTime(currentDate.year, currentDate.month + 1, 0).day,
-        (index) => false);
+      DateTime(currentDate.year, currentDate.month + 1, 0).day,
+      (index) => false,
+    );
   }
 
   @override
@@ -41,10 +42,12 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       appBar: AppBar(
         title: Text("Attendance Sheet: $month"),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios), // You can change this icon to the desired one
+          icon: Icon(Icons.arrow_back_ios),
           onPressed: () {
-            MaterialPageRoute(builder: ((context) => HomeScreen2()));
-            // Add the desired functionality for the icon press
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: ((context) => HomeScreen2())),
+            );
           },
         ),
       ),
@@ -68,35 +71,27 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
               runSpacing: 16.0,
               children: List.generate(
                 attendanceList.length,
-                (index) => GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      attendanceList[index] = !attendanceList[index];
-                    });
-                  },
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      borderRadius: BorderRadius.circular(14),
-                      color: attendanceList[index]
-                          ? Colors.green
-                          : currentDate.day == index + 1
-                              ? Colors.blue
-                              : Colors.transparent,
-                    ),
-                    child: Center(
-                      child: Text(
-                        "${index + 1}",
-                        style: TextStyle(
-                          color: attendanceList[index]
-                              ? Colors.grey
-                              : Colors.black,
-                          fontWeight: currentDate.day == index + 1
-                              ? FontWeight.bold
-                              : FontWeight.normal,
-                        ),
+                (index) => Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.grey),
+                    borderRadius: BorderRadius.circular(14),
+                    color: attendanceList[index]
+                        ? Colors.green
+                        : currentDate.day == index + 1
+                            ? Colors.blue
+                            : Colors.transparent,
+                  ),
+                  child: Center(
+                    child: Text(
+                      "${index + 1}",
+                      style: TextStyle(
+                        color:
+                            attendanceList[index] ? Colors.grey : Colors.black,
+                        fontWeight: currentDate.day == index + 1
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                       ),
                     ),
                   ),
@@ -107,5 +102,11 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
         ),
       ),
     );
+  }
+
+  // Function to load updated attendance data from Firestore
+  void loadAttendanceData() {
+    // Implement your Firestore logic here to retrieve updated attendance data
+    // Update the attendanceList based on the retrieved data
   }
 }
