@@ -1,36 +1,46 @@
-import 'package:attendance_app/main.dart';
-import 'package:attendance_app/verfied/login.dart';
-import 'package:attendance_app/verfied/signup.dart';
-import 'package:attendance_app/views/Attendt.dart';
-import 'package:attendance_app/views/attendace.dart';
-import 'package:attendance_app/views/homescreen2.dart';
+import 'package:presenty/main.dart';
+import 'package:presenty/verfied/login.dart';
+import 'package:presenty/verfied/signup.dart';
+import 'package:presenty/views/attendace.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:attendance_app/views/navigation_drawer.dart';
-import 'package:attendance_app/views/drawer_items.dart';
-import 'package:attendance_app/views/people.dart';
+import 'package:presenty/views/navigation_drawer.dart';
+import 'package:presenty/views/drawer_items.dart';
+import 'package:presenty/views/people.dart';
 //import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class HomeScreen extends StatefulWidget {
-  HomeScreen({Key? key}) : super(key: key);
+class HomeScreen2 extends StatefulWidget {
+  HomeScreen2({Key? key}) : super(key: key);
 
-  late String greeting; // Declare the greeting field
-
-  // Add a named constructor to initialize greeting
-  HomeScreen.withGreeting(String greeting) : greeting = greeting;
+  late String greeting;
+  HomeScreen2.withGreeting(String greeting) : greeting = greeting;
 
   String gifUrl = "images/animation.gif";
-
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreen2> createState() => _HomeScreen2State();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreen2State extends State<HomeScreen2> {
   bool isFinished = false;
   bool alertShown = false;
   final user = FirebaseAuth.instance.currentUser;
+  Future<Map<String, dynamic>> fetchUserData(String uid) async {
+    try {
+      final DocumentSnapshot<Map<String, dynamic>> userSnapshot =
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc("9h5vSX9AABbD5RBDRnWL")
+              .get();
+
+      return userSnapshot.data() ?? {};
+    } catch (e) {
+      print("Error fetching user data: $e");
+      return {};
+    }
+  }
 
   @override
   void initState() {
@@ -44,6 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  void showLoginAlertDialog(BuildContext context) async {
+    if (alertShown) {
+      return; // Do nothing if the alert is already shown
+    }
+
+    fetchUserData(user!.uid).then((userData) {
+      setState(() {
+        // Update the UI with user data
+        username = userData['username'] ?? 'Anonymous';
+      });
+    });
+  }
+
   String getGreeting() {
     var hour = DateTime.now().hour;
     if (hour < 12) {
@@ -54,53 +77,11 @@ class _HomeScreenState extends State<HomeScreen> {
       return "Good evening!";
     }
   }
-String username = '';
+
+  String username = '';
   signout() async {
     await FirebaseAuth.instance.signOut();
   }
-  void showLoginAlertDialog(BuildContext context) async {
-    if (alertShown) {
-      return; // Do nothing if the alert is already shown
-    }
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text("Mark Your Attendance!"),
-          actions: [
-            TextButton(
-              onPressed: () async {
-                Navigator.of(context).pop(); // Close the AlertDialog
-                alertShown = true; // Set the flag to true
-
-                // Navigate to Attendance screen
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Attend()),
-                )..then((value) {
-                    // This block will be executed when returning from the AttendanceScreen
-                    // If you need to navigate to HomeScreen, do it here
-                    if (value == true) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => Attend()),
-                      );
-                    }
-                  });
-              },
-              child: Text("OK"),
-            ),
-          ],
-        );
-      },
-    );
-  }
-  // After the alert is dismissed, navigate to the desired screen
-
-  // signout() async {
-  //   await FirebaseAuth.instance.signOut();
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -130,21 +111,6 @@ String username = '';
                   icon: Icons.people,
                   onPressed: () => onItemPressed(context, index: 0),
                 ),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                Divider(
-                  thickness: 1,
-                  //indent: 3,
-                  //endIndent: 10,
-                ),
-                const SizedBox(
-                  height: 4.0,
-                ),
-                DrawerItems(
-                    name: "About",
-                    icon: Icons.report,
-                    onPressed: () => onItemPressed(context, index: 0)),
                 const SizedBox(
                   height: 4.0,
                 ),
@@ -225,9 +191,9 @@ String username = '';
           ),
         ),
       ),
-      //----------------------HomeScreen----------------------
+      //----------------------HomeScreen2----------------------
       appBar: AppBar(
-        title: Text("HomePage 1 "),
+        title: Text("HomePage2 ${user!.email}"),
       ),
       body: ListView(
         children: [
@@ -848,11 +814,14 @@ String username = '';
   }
 
   Widget headerWidget() {
+    String url1 = "images/intro1.png";
     return Row(
       children: [
         const CircleAvatar(
           radius: 40,
-          // backgroundImage: NetworkImage(url)
+          // backgroundImage: url1.isNotEmpty
+          //     ? NetworkImage(url1) // Show the user's profile picture
+          //     : null
         ),
         const SizedBox(
           width: 20,

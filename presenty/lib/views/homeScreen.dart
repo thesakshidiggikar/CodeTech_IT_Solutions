@@ -1,14 +1,15 @@
-import 'package:attendance_app/main.dart';
-import 'package:attendance_app/verfied/login.dart';
-import 'package:attendance_app/verfied/signup.dart';
-import 'package:attendance_app/views/Attendt.dart';
-import 'package:attendance_app/views/attendace.dart';
-import 'package:attendance_app/views/homescreen2.dart';
+// import 'package:presenty/main.dart';
+import 'package:presenty/main.dart';
+import 'package:presenty/verfied/login.dart';
+import 'package:presenty/verfied/signup.dart';
+import 'package:presenty/views/Attendt.dart';
+import 'package:presenty/views/attendace.dart';
+import 'package:presenty/views/homescreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:attendance_app/views/navigation_drawer.dart';
-import 'package:attendance_app/views/drawer_items.dart';
-import 'package:attendance_app/views/people.dart';
+import 'package:presenty/views/navigation_drawer.dart';
+import 'package:presenty/views/drawer_items.dart';
+import 'package:presenty/views/people.dart';
 //import 'package:swipeable_button_view/swipeable_button_view.dart';
 import 'package:slide_to_act/slide_to_act.dart';
 import 'package:flutter_swipe_action_cell/flutter_swipe_action_cell.dart';
@@ -54,10 +55,12 @@ class _HomeScreenState extends State<HomeScreen> {
       return "Good evening!";
     }
   }
-String username = '';
+
+  String username = '';
   signout() async {
     await FirebaseAuth.instance.signOut();
   }
+
   void showLoginAlertDialog(BuildContext context) async {
     if (alertShown) {
       return; // Do nothing if the alert is already shown
