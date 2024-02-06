@@ -123,26 +123,18 @@ class _HomeScreen2State extends State<HomeScreen2> {
                   height: 4.0,
                 ),
                 DrawerItems(
-                    name: "About",
-                    icon: Icons.report,
-                    onPressed: () => onItemPressed(context, index: 0)),
-                const SizedBox(
-                  height: 4.0,
+                  name: "Attendace...",
+                  icon: Icons.login_rounded,
+                  onPressed: (() async {
+                    await signout();
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AttendanceScreen()));
+                  }),
                 ),
-                Divider(
-                  thickness: 1,
-                  //indent: 3,
-                  //endIndent: 10,
-                ),
                 const SizedBox(
-                  height: 4.0,
-                ),
-                DrawerItems(
-                    name: "profile",
-                    icon: Icons.people,
-                    onPressed: () => onItemPressed(context, index: 0)),
-                const SizedBox(
-                  height: 4.0,
+                  height: 3.0,
                 ),
                 Divider(
                   thickness: 1,
@@ -174,16 +166,13 @@ class _HomeScreen2State extends State<HomeScreen2> {
                 const SizedBox(
                   height: 4.0,
                 ),
-                DrawerItems(
-                  name: "Attendance...",
-                  icon: Icons.login_rounded,
-                  onPressed: (() async {
-                    await signout();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => AttendanceScreen()));
-                  }),
+                Divider(
+                  thickness: 1,
+                  //indent: 3,
+                  //endIndent: 10,
+                ),
+                const SizedBox(
+                  height: 4.0,
                 ),
                 DrawerItems(
                   name: "Logout...",
@@ -204,7 +193,7 @@ class _HomeScreen2State extends State<HomeScreen2> {
       ),
       //----------------------HomeScreen2----------------------
       appBar: AppBar(
-        title: Text("HomePage ${user!.email}"),
+        title: Text("HomePage2 ${user!.email}"),
       ),
       body: ListView(
         children: [

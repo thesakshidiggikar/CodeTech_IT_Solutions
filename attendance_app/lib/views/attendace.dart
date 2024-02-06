@@ -1,6 +1,8 @@
+import 'package:attendance_app/views/homeScreen.dart';
 import 'package:attendance_app/views/homescreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
 
 void main() {
   runApp(MyApp());
@@ -32,6 +34,9 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
       DateTime(currentDate.year, currentDate.month + 1, 0).day,
       (index) => false,
     );
+
+    // Call the function to load attendance data
+    loadAttendanceData();
   }
 
   @override
@@ -105,8 +110,27 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
   }
 
   // Function to load updated attendance data from Firestore
-  void loadAttendanceData() {
+  void loadAttendanceData() async {
     // Implement your Firestore logic here to retrieve updated attendance data
-    // Update the attendanceList based on the retrieved data
+    // For example, assuming you have a Firestore collection named 'attendance'
+    // and each document has a 'status' field indicating the attendance status.
+
+    try {
+      // Fetch data from Firestore
+      QuerySnapshot<Map<String, dynamic>> querySnapshot =
+          await FirebaseFirestore.instance.collection('attendance').get();
+
+      // Process the retrieved data and update attendanceList
+      querySnapshot.docs.forEach((doc) {
+        print('Date: ${doc['date'].toDate()}, Status: ${doc['status']}');
+        int day = doc['date'].toDate().day;
+
+        setState(() {
+          attendanceList[day - 1] = (doc['status'] == 'p');
+        });
+      });
+    } catch (e) {
+      print('Error loading attendance data: $e');
+    }
   }
 }

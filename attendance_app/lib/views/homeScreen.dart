@@ -227,7 +227,7 @@ String username = '';
       ),
       //----------------------HomeScreen----------------------
       appBar: AppBar(
-        title: Text("HomePage ${user!.email}"),
+        title: Text("HomePage 1 ${user!.email}"),
       ),
       body: ListView(
         children: [
