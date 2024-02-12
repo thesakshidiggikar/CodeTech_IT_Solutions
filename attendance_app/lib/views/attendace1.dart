@@ -1,5 +1,5 @@
-import 'package:presenty/views/homeScreen.dart';
-import 'package:presenty/views/homescreen2.dart';
+import 'package:attendance_app/views/homeScreen.dart';
+import 'package:attendance_app/views/homescreen2.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import "package:cloud_firestore/cloud_firestore.dart";
@@ -109,28 +109,33 @@ class _AttendanceScreenState extends State<AttendanceScreen> {
     );
   }
 
-  // Function to load updated attendance data from Firestore
   void loadAttendanceData() async {
-    // Implement your Firestore logic here to retrieve updated attendance data
-    // For example, assuming you have a Firestore collection named 'attendance'
-    // and each document has a 'status' field indicating the attendance status.
-
     try {
-      // Fetch data from Firestore
+      DateTime currentDate = DateTime.now();
+      String formattedCurrentDate =
+          "${currentDate.year}-${currentDate.month}-${currentDate.day}";
+
+      // Fetch data from Firestore for the current date
       QuerySnapshot<Map<String, dynamic>> querySnapshot =
-          await FirebaseFirestore.instance.collection('attendance').get();
+          await FirebaseFirestore.instance
+              .collection('attendance')
+              .where('date', isEqualTo: formattedCurrentDate)
+              .get();
 
-      // Process the retrieved data and update attendanceList
-      querySnapshot.docs.forEach((doc) {
-        print('Date: ${doc['date'].toDate()}, Status: ${doc['status']}');
-        int day = doc['date'].toDate().day;
+      // Check if there is a document with status 'p' for the current date
+      bool isPresent = querySnapshot.docs.isNotEmpty &&
+          querySnapshot.docs.first['status'] == 'p';
 
-        setState(() {
-          attendanceList[day - 1] = (doc['status'] == 'p');
-        });
+      // Update the attendanceList using setState
+      setState(() {
+        // Check if the status is 'p' for present or if it's the current date
+        attendanceList[currentDate.day - 1] =
+            isPresent || currentDate.day == currentDate.day;
       });
     } catch (e) {
+      // Handle errors
       print('Error loading attendance data: $e');
     }
   }
+
 }
